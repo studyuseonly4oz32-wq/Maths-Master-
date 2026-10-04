@@ -1,0 +1,1958 @@
+```html
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>मैथ मास्टर - 100% ऑफलाइन एक्जाम क्विज़ हब</title>
+    <style>
+        /* ==========================================================
+           100% OFFLINE DESIGN SYSTEM (Zero External Dependencies)
+           ========================================================== */
+        :root {
+            --brand-50: #eef2ff;
+            --brand-100: #e0e7ff;
+            --brand-200: #c7d2fe;
+            --brand-500: #6366f1;
+            --brand-600: #4f46e5;
+            --brand-700: #4338ca;
+            --brand-900: #312e81;
+            --slate-50: #f8fafc;
+            --slate-100: #f1f5f9;
+            --slate-200: #e2e8f0;
+            --slate-300: #cbd5e1;
+            --slate-400: #94a3b8;
+            --slate-500: #64748b;
+            --slate-600: #475569;
+            --slate-700: #334155;
+            --slate-800: #1e293b;
+            --slate-900: #0f172a;
+            --emerald-50: #ecfdf5;
+            --emerald-100: #d1fae5;
+            --emerald-500: #10b981;
+            --emerald-600: #059669;
+            --emerald-700: #047857;
+            --rose-50: #fff1f2;
+            --rose-100: #ffe4e6;
+            --rose-500: #f43f5e;
+            --rose-600: #e11d48;
+            --amber-50: #fffbeb;
+            --amber-100: #fef3c7;
+            --amber-400: #fbbf24;
+            --amber-500: #f59e0b;
+            --amber-600: #d97706;
+            --violet-50: #f5f3ff;
+            --violet-100: #ede9fe;
+            --violet-600: #7c3aed;
+            --violet-700: #6d28d9;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+            --radius-xl: 18px;
+            --radius-2xl: 24px;
+            --radius-full: 9999px;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans Devanagari", "Noto Sans", sans-serif;
+            background-color: var(--slate-100);
+            color: var(--slate-800);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            -webkit-tap-highlight-color: transparent;
+            line-height: 1.5;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.93); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+        @keyframes pulseSuccess {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.025); }
+            100% { transform: scale(1); }
+        }
+
+        .animate-pop { animation: popIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .animate-shake { animation: shake 0.3s ease-in-out; }
+        .animate-success { animation: pulseSuccess 0.28s ease-in-out; }
+        .hidden { display: none !important; }
+
+        .app-header {
+            background: #ffffff;
+            border-bottom: 1px solid var(--slate-200);
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            box-shadow: var(--shadow-sm);
+        }
+        .header-top {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .brand-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .brand-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-lg);
+            background: linear-gradient(135deg, var(--brand-600), var(--brand-700));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
+            flex-shrink: 0;
+        }
+        .brand-title {
+            font-size: 1.05rem;
+            font-weight: 900;
+            color: var(--slate-900);
+            line-height: 1.2;
+        }
+        .brand-badge {
+            background: var(--emerald-100);
+            color: var(--emerald-700);
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 7px;
+            border-radius: var(--radius-full);
+            display: inline-block;
+            margin-left: 4px;
+        }
+        .brand-subtitle {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--slate-500);
+        }
+
+        .tabs-bar {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 12px;
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            border-top: 1px solid var(--slate-100);
+            background: #ffffff;
+            scrollbar-width: thin;
+        }
+        .tabs-bar::-webkit-scrollbar { height: 4px; }
+        .tabs-bar::-webkit-scrollbar-thumb { background: var(--slate-300); border-radius: 4px; }
+
+        .nav-tab-btn {
+            padding: 12px 14px;
+            font-size: 12px;
+            font-weight: 700;
+            white-space: nowrap;
+            border: none;
+            background: none;
+            border-bottom: 2.5px solid transparent;
+            color: var(--slate-600);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .nav-tab-btn.active {
+            border-bottom-color: var(--brand-600);
+            color: var(--brand-600);
+        }
+        .nav-tab-btn:hover:not(.active) {
+            color: var(--slate-900);
+        }
+
+        .main-container {
+            max-width: 980px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 18px 14px 40px;
+            flex: 1;
+        }
+
+        .hero-banner {
+            border-radius: var(--radius-2xl);
+            padding: 20px;
+            color: #ffffff;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .hero-tables { background: linear-gradient(135deg, var(--brand-600), #4338ca 60%, #312e81); }
+        .hero-fractions { background: linear-gradient(135deg, var(--violet-600), #5b21b6); }
+        .hero-divisibility { background: linear-gradient(135deg, var(--emerald-600), #0f766e); }
+        .hero-primes { background: linear-gradient(135deg, var(--amber-500), #d97706); }
+
+        @media (min-width: 768px) {
+            .hero-banner {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                padding: 24px;
+            }
+        }
+        .hero-tag {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            opacity: 0.9;
+        }
+        .hero-title {
+            font-size: 1.35rem;
+            font-weight: 900;
+            line-height: 1.25;
+            margin-top: 2px;
+        }
+        .hero-desc {
+            font-size: 12.5px;
+            opacity: 0.92;
+            margin-top: 4px;
+        }
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .btn-yellow {
+            background-color: var(--amber-400);
+            color: var(--slate-900);
+            font-weight: 900;
+            font-size: 12.5px;
+            padding: 10px 18px;
+            border-radius: var(--radius-lg);
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12);
+            transition: transform 0.1s ease, filter 0.1s ease;
+        }
+        .btn-yellow:active { transform: scale(0.97); }
+        .btn-yellow:hover { filter: brightness(1.06); }
+
+        .btn-glass {
+            background-color: rgba(255, 255, 255, 0.18);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 12.5px;
+            padding: 10px 16px;
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            backdrop-filter: blur(4px);
+            transition: all 0.15s ease;
+        }
+        .btn-glass:hover { background-color: rgba(255, 255, 255, 0.28); }
+
+        .card-white {
+            background: #ffffff;
+            border-radius: var(--radius-2xl);
+            border: 1px solid var(--slate-200);
+            box-shadow: var(--shadow-sm);
+            padding: 18px;
+            margin-bottom: 20px;
+        }
+
+        .grid-buttons-10 {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+        }
+        @media (min-width: 600px) {
+            .grid-buttons-10 { grid-template-columns: repeat(10, 1fr); gap: 8px; }
+        }
+
+        .num-selector-btn {
+            height: 38px;
+            border-radius: var(--radius-md);
+            font-weight: 900;
+            font-size: 13px;
+            cursor: pointer;
+            border: 1px solid var(--slate-200);
+            background: #ffffff;
+            color: var(--slate-700);
+            transition: all 0.12s ease;
+        }
+        .num-selector-btn:hover { background: var(--slate-50); }
+        .num-selector-btn.selected {
+            background: var(--brand-600);
+            color: #ffffff;
+            border-color: var(--brand-600);
+            box-shadow: 0 4px 10px rgba(79, 70, 229, 0.35);
+            transform: scale(1.05);
+        }
+
+        .equations-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+        @media (min-width: 640px) {
+            .equations-grid { grid-template-columns: 1fr 1fr; }
+        }
+        .eq-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px;
+            background: var(--slate-50);
+            border: 1px solid var(--slate-200);
+            border-radius: var(--radius-lg);
+            font-size: 15px;
+            font-family: monospace;
+            font-weight: 800;
+        }
+
+        /* Fraction Cards Grid */
+        .fraction-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        @media (min-width: 640px) { .fraction-cards-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (min-width: 900px) { .fraction-cards-grid { grid-template-columns: repeat(4, 1fr); } }
+
+        .frac-card {
+            background: #ffffff;
+            border: 1px solid var(--slate-200);
+            border-radius: var(--radius-xl);
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.15s ease;
+        }
+        .frac-card:hover {
+            border-color: var(--violet-600);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Divisibility Rules Grid */
+        .rules-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 14px;
+        }
+        @media (min-width: 768px) { .rules-grid { grid-template-columns: 1fr 1fr; } }
+        .rule-card {
+            background: #ffffff;
+            border: 1px solid var(--slate-200);
+            border-radius: var(--radius-xl);
+            padding: 16px;
+        }
+
+        .quiz-setup-card {
+            max-width: 680px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: var(--radius-2xl);
+            border: 1px solid var(--slate-200);
+            padding: 24px;
+            box-shadow: var(--shadow-lg);
+        }
+        .topic-chips-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-top: 8px;
+        }
+        @media (min-width: 640px) { .topic-chips-grid { grid-template-columns: repeat(4, 1fr); } }
+
+        .topic-chip {
+            padding: 12px 10px;
+            border-radius: var(--radius-lg);
+            border: 1.5px solid var(--slate-200);
+            background: #ffffff;
+            font-size: 11.5px;
+            font-weight: 700;
+            color: var(--slate-700);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .topic-chip.active {
+            border-color: var(--brand-600);
+            background: var(--brand-50);
+            color: var(--brand-900);
+            font-weight: 900;
+            box-shadow: 0 2px 8px rgba(79, 70, 229, 0.2);
+        }
+        .topic-chip-mixed {
+            grid-column: 1 / -1;
+            flex-direction: row;
+            justify-content: center;
+            padding: 10px;
+        }
+        .topic-chip-mixed.active {
+            border-color: var(--rose-600);
+            background: var(--rose-50);
+            color: var(--rose-600);
+        }
+
+        .range-wrapper {
+            background: var(--slate-50);
+            border: 1px solid var(--slate-200);
+            border-radius: var(--radius-xl);
+            padding: 16px;
+            margin: 16px 0;
+        }
+        .range-presets-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 6px;
+            margin: 10px 0;
+        }
+        @media (min-width: 600px) { .range-presets-grid { grid-template-columns: repeat(4, 1fr); } }
+
+        .preset-pill {
+            padding: 8px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--slate-200);
+            background: #ffffff;
+            font-size: 11px;
+            font-weight: 800;
+            cursor: pointer;
+            text-align: center;
+            color: var(--slate-700);
+        }
+        .preset-pill.active {
+            background: var(--brand-600);
+            color: #ffffff;
+            border-color: var(--brand-600);
+        }
+
+        .custom-dropdowns-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        .custom-select {
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--slate-300);
+            background: #ffffff;
+            font-weight: 700;
+            font-size: 12px;
+            color: var(--slate-800);
+        }
+
+        .btn-start-test {
+            width: 100%;
+            padding: 16px;
+            border-radius: var(--radius-xl);
+            background: linear-gradient(135deg, var(--emerald-600), #047857);
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: 900;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 8px 16px rgba(5, 150, 105, 0.3);
+            transition: transform 0.1s ease, filter 0.1s ease;
+            margin-top: 20px;
+        }
+        .btn-start-test:active { transform: scale(0.97); }
+
+        .quiz-arena {
+            max-width: 680px;
+            margin: 0 auto;
+        }
+        .arena-status-bar {
+            background: #ffffff;
+            border: 1px solid var(--slate-200);
+            border-radius: var(--radius-xl);
+            padding: 14px 18px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow-sm);
+        }
+        .progress-track {
+            height: 9px;
+            background: var(--slate-100);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: var(--emerald-500);
+            border-radius: var(--radius-full);
+            transition: width 0.3s ease;
+        }
+
+        .question-card {
+            background: #ffffff;
+            border: 1px solid var(--slate-200);
+            border-radius: var(--radius-2xl);
+            padding: 26px 20px;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 14px;
+        }
+        .question-badge {
+            font-size: 11px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--slate-400);
+            margin-bottom: 6px;
+        }
+        .question-display {
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--slate-900);
+            font-family: monospace;
+        }
+        .feedback-message {
+            height: 24px;
+            font-size: 13px;
+            font-weight: 800;
+            margin-top: 8px;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .option-button {
+            padding: 14px 16px;
+            border-radius: var(--radius-xl);
+            border: 2px solid var(--slate-200);
+            background: #ffffff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.12s ease;
+            user-select: none;
+        }
+        .option-button:active { transform: scale(0.96); }
+        .option-letter {
+            width: 30px;
+            height: 30px;
+            border-radius: var(--radius-md);
+            background: var(--slate-100);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 900;
+            color: var(--slate-700);
+            margin-right: 8px;
+            flex-shrink: 0;
+        }
+        .option-text {
+            font-size: 1.35rem;
+            font-weight: 900;
+            color: var(--slate-900);
+        }
+
+        .option-button.correct {
+            background: var(--emerald-50) !important;
+            border-color: var(--emerald-500) !important;
+            color: var(--emerald-700) !important;
+        }
+        .option-button.wrong {
+            background: var(--rose-50) !important;
+            border-color: var(--rose-500) !important;
+            color: var(--rose-700) !important;
+        }
+
+        /* 3-2-1 Countdown Overlay */
+        .countdown-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(6px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+        }
+        .countdown-digit {
+            font-size: 7rem;
+            font-weight: 900;
+            color: var(--amber-400);
+            line-height: 1;
+        }
+
+        /* Svg Icon Classes */
+        .svg-icon {
+            display: inline-block;
+            vertical-align: middle;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            width: 17px;
+            height: 17px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Offline Sticky Header -->
+    <header class="app-header">
+        <div class="header-top">
+            <div class="brand-box">
+                <div class="brand-icon">
+                    <svg class="svg-icon" style="width:22px;height:22px;" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="16" y2="18"></line><path d="M16 10h.01"></path><path d="M12 10h.01"></path><path d="M8 10h.01"></path><path d="M12 14h.01"></path><path d="M8 14h.01"></path><path d="M12 18h.01"></path><path d="M8 18h.01"></path></svg>
+                </div>
+                <div>
+                    <div class="brand-title">मैथ मास्टर <span class="brand-badge">100% ऑफलाइन</span></div>
+                    <div class="brand-subtitle">1-30 पहाड़े • प्रतिशत ⇄ भिन्न • विभाज्यता • अभाज्य संख्याएँ</div>
+                </div>
+            </div>
+
+            <!-- Sound Toggle Button -->
+            <button id="soundToggleBtn" onclick="toggleSound()" class="btn-glass" style="background:#f1f5f9; color:var(--slate-800); border:1px solid var(--slate-200); padding:7px 12px; font-size:12px;">
+                <svg id="soundIcon" class="svg-icon" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                <span id="soundLabel">साउंड चालू</span>
+            </button>
+        </div>
+
+        <!-- 5 Offline Categories -->
+        <div class="tabs-bar">
+            <button id="tabNav_tables" onclick="switchNavTab('tables')" class="nav-tab-btn active">
+                <svg class="svg-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="3" y1="15" x2="21" y2="15"></line><line x1="9" y1="3" x2="9" y2="21"></line><line x1="15" y1="3" x2="15" y2="21"></line></svg>
+                <span>1-30 पहाड़े</span>
+            </button>
+            <button id="tabNav_fractions" onclick="switchNavTab('fractions')" class="nav-tab-btn">
+                <svg class="svg-icon" viewBox="0 0 24 24"><line x1="19" y1="5" x2="5" y2="19"></line><circle cx="6.5" cy="6.5" r="2.5"></circle><circle cx="17.5" cy="17.5" r="2.5"></circle></svg>
+                <span>प्रतिशत ⇄ भिन्न (Exam Chart)</span>
+            </button>
+            <button id="tabNav_divisibility" onclick="switchNavTab('divisibility')" class="nav-tab-btn">
+                <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="6" r="2"></circle><line x1="5" y1="12" x2="19" y2="12"></line><circle cx="12" cy="18" r="2"></circle></svg>
+                <span>विभाज्यता (2-11)</span>
+            </button>
+            <button id="tabNav_primes" onclick="switchNavTab('primes')" class="nav-tab-btn">
+                <svg class="svg-icon" viewBox="0 0 24 24"><path d="M6 3h12l4 6-10 13L2 9z"></path></svg>
+                <span>अभाज्य संख्याएँ (1-100)</span>
+            </button>
+            <button id="tabNav_quiz" onclick="switchNavTab('quiz')" class="nav-tab-btn" style="color:var(--rose-600);">
+                <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                <span>🎯 रैंडम टेस्ट (Quiz Hub)</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main App Body -->
+    <main class="main-container">
+
+        <!-- ======================================================== -->
+        <!-- SECTION 1: TABLES 1 TO 30                               -->
+        <!-- ======================================================== -->
+        <section id="sec_tables">
+            <!-- Hero Banner -->
+            <div class="hero-banner hero-tables">
+                <div>
+                    <span class="hero-tag" style="color:var(--brand-200);">पहाड़े (Multiplication Tables 1-30)</span>
+                    <h2 class="hero-title">1 से 30 तक के पहाड़े याद करें व टेस्ट दें</h2>
+                    <p class="hero-desc">पूरे 1-30 का रैंडम टेस्ट दें या किसी भी पहाड़े को ऑडियो में सुनें</p>
+                </div>
+                <div class="hero-actions">
+                    <button onclick="launchTablesQuizDirect(1, 30)" class="btn-yellow">
+                        <svg class="svg-icon" style="stroke:var(--slate-900);fill:var(--slate-900);" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                        <span>पूरे 1 से 30 का रैंडम टेस्ट</span>
+                    </button>
+                    <button onclick="launchTablesQuizDirect(currentTableNumber, currentTableNumber)" class="btn-glass">
+                        <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                        <span>इस <span id="currentTableTestLabel" style="text-decoration:underline;">12 के पहाड़े</span> का टेस्ट</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Table Number Filters & Selector Grid -->
+            <div class="card-white">
+                <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px; margin-bottom:12px;">
+                    <div style="font-size:13px; font-weight:800; color:var(--slate-800);">पहाड़ा चुनें (1 से 30):</div>
+                    <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                        <button onclick="filterTables(1, 30)" class="preset-pill active" id="tblFilter_all">सभी (1-30)</button>
+                        <button onclick="filterTables(1, 10)" class="preset-pill" id="tblFilter_1-10">1 से 10</button>
+                        <button onclick="filterTables(11, 20)" class="preset-pill" id="tblFilter_11-20">11 से 20</button>
+                        <button onclick="filterTables(21, 30)" class="preset-pill" id="tblFilter_21-30">21 से 30</button>
+                    </div>
+                </div>
+                <!-- 1 to 30 buttons grid -->
+                <div id="tableButtonsGrid" class="grid-buttons-10"></div>
+            </div>
+
+            <!-- Table Card Display -->
+            <div class="card-white" style="padding:0; overflow:hidden;">
+                <div style="background:var(--slate-900); color:#ffffff; padding:16px 20px; display:flex; align-items:center; justify-content:space-between;">
+                    <div style="display:flex; align-items:center; gap:14px;">
+                        <div id="tableBadgeNumber" style="width:44px; height:44px; border-radius:var(--radius-lg); background:var(--brand-600); display:flex; align-items:center; justify-content:center; font-size:1.4rem; font-weight:900;">
+                            12
+                        </div>
+                        <div>
+                            <h3 id="tableTitle" style="font-size:1.15rem; font-weight:900;">12 का पहाड़ा (Table of 12)</h3>
+                            <div style="font-size:11.5px; color:var(--slate-400);">1 से 10 तक गुणनफल तालिका</div>
+                        </div>
+                    </div>
+                    <button onclick="speakTable()" class="btn-glass" style="padding:7px 12px; font-size:11.5px; background:rgba(255,255,255,0.1);">
+                        <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+                        <span>पहाड़ा सुनें</span>
+                    </button>
+                </div>
+                <div style="padding:20px;">
+                    <div id="tableEquationsGrid" class="equations-grid"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- SECTION 2: PERCENTAGE TO FRACTION (EXAM SPECIAL)         -->
+        <!-- ======================================================== -->
+        <section id="sec_fractions" class="hidden">
+            <div class="hero-banner hero-fractions">
+                <div>
+                    <span class="hero-tag" style="color:var(--violet-100);">प्रतियोगी परीक्षा स्पेशल (SSC / Banking / Railway)</span>
+                    <h2 class="hero-title">प्रतिशत ⇄ भिन्न मान (Exam Fractions Chart)</h2>
+                    <p class="hero-desc">तेज़ गणना (Fast Calculation) के लिए 1/1 से 1/25 व महत्वपूर्ण गुणज</p>
+                </div>
+                <button onclick="launchQuizForTopic('fractions')" class="btn-yellow">
+                    <svg class="svg-icon" style="stroke:var(--slate-900);fill:var(--slate-900);" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                    <span>भिन्न ⇄ % का टेस्ट दें</span>
+                </button>
+            </div>
+
+            <div style="display:flex; gap:8px; overflow-x:auto; margin-bottom:14px; padding-bottom:4px;">
+                <button onclick="filterFractionCategory('all')" id="fracFilter_all" class="preset-pill active" style="padding:8px 14px; font-size:12px;">सभी मान (1/1 से 1/25 + गुणज)</button>
+                <button onclick="filterFractionCategory('base')" id="fracFilter_base" class="preset-pill" style="padding:8px 14px; font-size:12px;">मूल भिन्न (1/1 to 1/20)</button>
+                <button onclick="filterFractionCategory('multiples')" id="fracFilter_multiples" class="preset-pill" style="padding:8px 14px; font-size:12px;">महत्वपूर्ण गुणज (3/8, 5/6, 4/7...)</button>
+            </div>
+
+            <div id="fractionCardsGrid" class="fraction-cards-grid"></div>
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- SECTION 3: DIVISIBILITY RULES (विभाज्यता 2 से 11)        -->
+        <!-- ======================================================== -->
+        <section id="sec_divisibility" class="hidden">
+            <div class="hero-banner hero-divisibility">
+                <div>
+                    <span class="hero-tag" style="color:var(--emerald-100);">शॉर्टकट ट्रिक्स (Shortcuts)</span>
+                    <h2 class="hero-title">विभाज्यता के नियम (Divisibility Rules 2 to 11)</h2>
+                    <p class="hero-desc">बिना भाग दिए तुरंत पहचानें कि कोई भी बड़ी संख्या किससे कटेगी</p>
+                </div>
+                <button onclick="launchQuizForTopic('divisibility')" class="btn-yellow">
+                    <svg class="svg-icon" style="stroke:var(--slate-900);fill:var(--slate-900);" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                    <span>विभाज्यता टेस्ट दें</span>
+                </button>
+            </div>
+
+            <div id="divisibilityRulesGrid" class="rules-grid"></div>
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- SECTION 4: PRIME NUMBERS (1 से 100 अभाज्य संख्याएँ)      -->
+        <!-- ======================================================== -->
+        <section id="sec_primes" class="hidden">
+            <div class="hero-banner hero-primes">
+                <div>
+                    <span class="hero-tag" style="color:var(--amber-100);">संख्या प्रणाली (Number System)</span>
+                    <h2 class="hero-title">1 से 100 तक अभाज्य संख्याएँ (Primes 1-100)</h2>
+                    <p class="hero-desc">1 से 100 के बीच कुल <b>25 अभाज्य संख्याएँ</b> होती हैं (हरे रंग में)</p>
+                </div>
+                <button onclick="launchQuizForTopic('primes')" class="btn-glass" style="background:var(--slate-900); color:#ffffff; border:none;">
+                    <svg class="svg-icon" style="color:var(--amber-400);" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                    <span>अभाज्य संख्या टेस्ट दें</span>
+                </button>
+            </div>
+
+            <!-- Number Inspector Card -->
+            <div class="card-white" style="border:2px solid var(--amber-400); display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+                <div style="display:flex; align-items:center; gap:14px;">
+                    <div id="inspectorNum" style="width:46px; height:46px; border-radius:var(--radius-lg); background:var(--amber-500); color:#ffffff; display:flex; align-items:center; justify-content:center; font-size:1.5rem; font-weight:900;">
+                        73
+                    </div>
+                    <div>
+                        <div id="inspectorStatus" style="font-weight:900; font-size:14px; color:var(--slate-900);">73 एक अभाज्य संख्या (Prime) है</div>
+                        <div id="inspectorDetails" style="font-size:12px; color:var(--slate-500);">इसके केवल 2 गुणनखंड हैं: 1 और 73</div>
+                    </div>
+                </div>
+                <span style="font-size:11.5px; font-weight:800; background:var(--amber-50); color:var(--amber-600); padding:4px 10px; border-radius:var(--radius-full); border:1px solid var(--amber-100);">किसी भी नंबर पर क्लिक करें</span>
+            </div>
+
+            <!-- 100 Grid -->
+            <div class="card-white">
+                <div style="display:flex; gap:16px; font-size:12px; font-weight:800; color:var(--slate-600); margin-bottom:12px;">
+                    <span style="display:flex; align-items:center; gap:6px;">
+                        <span style="width:14px; height:14px; border-radius:3px; background:var(--emerald-500); display:inline-block;"></span> अभाज्य (Prime - 25)
+                    </span>
+                    <span style="display:flex; align-items:center; gap:6px;">
+                        <span style="width:14px; height:14px; border-radius:3px; background:#ffffff; border:1px solid var(--slate-300); display:inline-block;"></span> भाज्य (Composite)
+                    </span>
+                </div>
+                <div id="primeNumbersGrid" class="grid-buttons-10"></div>
+            </div>
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- SECTION 5: SMART QUIZ HUB (ALL TOPICS WITH 4 OPTIONS)    -->
+        <!-- ======================================================== -->
+        <section id="sec_quiz" class="hidden">
+
+            <!-- 1. QUIZ SETUP SCREEN -->
+            <div id="quizSetupCard" class="quiz-setup-card animate-pop">
+                <div style="text-align:center; margin-bottom:20px;">
+                    <div style="width:52px; height:52px; border-radius:var(--radius-xl); background:linear-gradient(135deg, var(--brand-600), var(--brand-700)); color:#ffffff; display:flex; align-items:center; justify-content:center; margin:0 auto 10px; box-shadow:0 4px 12px rgba(79, 70, 229, 0.3);">
+                        <svg class="svg-icon" style="width:26px; height:26px; color:var(--amber-400);" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                    </div>
+                    <h2 style="font-size:1.4rem; font-weight:900; color:var(--slate-900);">रैंडम टेस्ट (Smart MCQ Quiz)</h2>
+                    <p style="font-size:12.5px; color:var(--slate-500); margin-top:2px;">विषय चुनें, दायरा तय करें और 4 विकल्पों में से सही उत्तर पहचानें</p>
+                </div>
+
+                <div>
+                    <!-- Step 1: Topic -->
+                    <label style="display:block; font-size:11.5px; font-weight:900; text-transform:uppercase; color:var(--slate-700); margin-bottom:6px;">
+                        1. टेस्ट का विषय (Topic) चुनें:
+                    </label>
+                    <div class="topic-chips-grid">
+                        <button type="button" onclick="selectQuizTopic('tables')" id="topicBtn_tables" class="topic-chip active">
+                            <svg class="svg-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="3" y1="15" x2="21" y2="15"></line><line x1="9" y1="3" x2="9" y2="21"></line><line x1="15" y1="3" x2="15" y2="21"></line></svg>
+                            <span>1-30 पहाड़े</span>
+                        </button>
+                        <button type="button" onclick="selectQuizTopic('fractions')" id="topicBtn_fractions" class="topic-chip">
+                            <svg class="svg-icon" viewBox="0 0 24 24"><line x1="19" y1="5" x2="5" y2="19"></line><circle cx="6.5" cy="6.5" r="2.5"></circle><circle cx="17.5" cy="17.5" r="2.5"></circle></svg>
+                            <span>प्रतिशत ⇄ भिन्न</span>
+                        </button>
+                        <button type="button" onclick="selectQuizTopic('divisibility')" id="topicBtn_divisibility" class="topic-chip">
+                            <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="6" r="2"></circle><line x1="5" y1="12" x2="19" y2="12"></line><circle cx="12" cy="18" r="2"></circle></svg>
+                            <span>विभाज्यता (2-11)</span>
+                        </button>
+                        <button type="button" onclick="selectQuizTopic('primes')" id="topicBtn_primes" class="topic-chip">
+                            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M6 3h12l4 6-10 13L2 9z"></path></svg>
+                            <span>अभाज्य संख्याएँ</span>
+                        </button>
+                        <button type="button" onclick="selectQuizTopic('mixed')" id="topicBtn_mixed" class="topic-chip topic-chip-mixed">
+                            <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                            <span>🌟 ऑल-इन-वन महा-टेस्ट (All Topics Mixed)</span>
+                        </button>
+                    </div>
+
+                    <!-- Step 2: Range Config -->
+                    <div id="tableRangeConfigWrapper" class="range-wrapper">
+                        <div style="display:flex; align-items:center; justify-content:space-between;">
+                            <label style="font-size:11.5px; font-weight:900; text-transform:uppercase; color:var(--slate-700);">
+                                पहाड़ों का दायरा (Range):
+                            </label>
+                            <span id="rangeBadgePreview" style="font-size:11.5px; font-weight:900; background:var(--brand-100); color:var(--brand-700); padding:3px 10px; border-radius:var(--radius-full);">
+                                पूरे 1 से 30 (रैंडम)
+                            </span>
+                        </div>
+
+                        <div class="range-presets-grid">
+                            <button type="button" onclick="setQuizRangePreset(1, 30, 'all')" id="preset_all" class="preset-pill active">🌟 पूरे 1 से 30</button>
+                            <button type="button" onclick="setQuizRangePreset(1, 10, '1-10')" id="preset_1-10" class="preset-pill">1 से 10</button>
+                            <button type="button" onclick="setQuizRangePreset(11, 20, '11-20')" id="preset_11-20" class="preset-pill">11 से 20</button>
+                            <button type="button" onclick="setQuizRangePreset(21, 30, '21-30')" id="preset_21-30" class="preset-pill">21 से 30</button>
+                        </div>
+
+                        <div class="custom-dropdowns-row">
+                            <div>
+                                <span style="font-size:11px; font-weight:700; color:var(--slate-500); display:block; margin-bottom:3px;">यहाँ से (From):</span>
+                                <select id="rangeSelectFrom" onchange="onRangeDropdownChange()" class="custom-select"></select>
+                            </div>
+                            <div>
+                                <span style="font-size:11px; font-weight:700; color:var(--slate-500); display:block; margin-bottom:3px;">यहाँ तक (To):</span>
+                                <select id="rangeSelectTo" onchange="onRangeDropdownChange()" class="custom-select"></select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Question Count -->
+                    <div style="margin-top:16px;">
+                        <label style="display:block; font-size:11.5px; font-weight:900; text-transform:uppercase; color:var(--slate-700); margin-bottom:6px;">
+                            2. टेस्ट में कितने सवाल?
+                        </label>
+                        <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:8px;">
+                            <button type="button" onclick="setQuizQuestionCount(10)" id="lenBtn_10" class="preset-pill active" style="padding:10px;">🎯 10 सवाल</button>
+                            <button type="button" onclick="setQuizQuestionCount(20)" id="lenBtn_20" class="preset-pill" style="padding:10px;">🚀 20 सवाल</button>
+                            <button type="button" onclick="setQuizQuestionCount('timer60')" id="lenBtn_timer60" class="preset-pill" style="padding:10px;">⏱️ 60s स्पीड</button>
+                            <button type="button" onclick="setQuizQuestionCount('endless')" id="lenBtn_endless" class="preset-pill" style="padding:10px;">♾ अनलिमिटेड</button>
+                        </div>
+                    </div>
+
+                    <button type="button" onclick="startQuizWithCountdown()" class="btn-start-test">
+                        <svg class="svg-icon" style="width:22px; height:22px; stroke:#ffffff; fill:#ffffff;" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                        <span>🚀 टेस्ट शुरू करें (START TEST)</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 2. ACTIVE QUIZ ARENA -->
+            <div id="quizActiveArena" class="quiz-arena hidden">
+                <div class="arena-status-bar">
+                    <div style="display:flex; align-items:center; justify-content:space-between; font-size:12px; font-weight:800;">
+                        <span id="quizCounterText" style="background:var(--slate-100); padding:4px 10px; border-radius:var(--radius-full);">सवाल 1 / 10</span>
+                        <span id="quizTopicBadge" style="background:var(--brand-50); color:var(--brand-700); padding:4px 12px; border-radius:var(--radius-full);">1-30 पहाड़े</span>
+                        <button onclick="exitQuizToSetup()" style="border:none; background:none; color:var(--rose-600); cursor:pointer; font-weight:800; display:flex; align-items:center; gap:4px;">
+                            ✕ बंद करें
+                        </button>
+                    </div>
+
+                    <div class="progress-track">
+                        <div id="quizProgressBar" class="progress-fill" style="width:10%;"></div>
+                    </div>
+
+                    <div style="display:flex; align-items:center; justify-content:space-between; font-size:12px; font-weight:800; border-top:1px solid var(--slate-100); padding-top:8px;">
+                        <span style="color:var(--emerald-600);">✓ सही: <span id="statCorrect" style="font-size:14px;">0</span></span>
+                        <span style="color:var(--rose-600);">✕ गलत: <span id="statWrong" style="font-size:14px;">0</span></span>
+                        <span style="color:var(--amber-500);">🔥 स्ट्रीक: <span id="statStreak" style="font-size:14px;">0</span></span>
+                    </div>
+                </div>
+
+                <!-- Question Card -->
+                <div id="quizQuestionCard" class="question-card">
+                    <div id="questionCategoryPrompt" class="question-badge">सही विकल्प चुनें:</div>
+                    <div id="questionContentArea" class="question-display"></div>
+                    <div id="quizFeedbackMessage" class="feedback-message"></div>
+                </div>
+
+                <!-- 4 Options Grid -->
+                <div id="quizOptionsGrid" class="options-grid"></div>
+
+                <div style="text-align:center; font-size:11.5px; color:var(--slate-400); margin-top:12px;">
+                    💡 टिप: कीबोर्ड से <b>1, 2, 3, 4</b> दबाकर भी उत्तर दे सकते हैं!
+                </div>
+            </div>
+
+            <!-- 3. TEST RESULT MODAL -->
+            <div id="quizResultModal" class="card-white hidden animate-pop" style="max-width:540px; margin:0 auto; text-align:center;">
+                <div id="resIcon" style="width:64px; height:64px; border-radius:var(--radius-full); background:var(--amber-100); color:var(--amber-600); font-size:2rem; display:flex; align-items:center; justify-content:center; margin:0 auto 10px;">
+                    🏆
+                </div>
+                <h3 id="resTitle" style="font-size:1.5rem; font-weight:900; color:var(--slate-900);">शानदार प्रदर्शन!</h3>
+                <p id="resSubtitle" style="font-size:12.5px; color:var(--slate-500); margin-top:2px;">आपने टेस्ट पूरा कर लिया है</p>
+
+                <!-- Stats summary -->
+                <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; background:var(--slate-50); border:1px solid var(--slate-200); border-radius:var(--radius-xl); padding:14px; margin:18px 0;">
+                    <div>
+                        <div style="font-size:11px; font-weight:800; color:var(--slate-500);">कुल सवाल</div>
+                        <div id="resTotal" style="font-size:1.5rem; font-weight:900; color:var(--slate-800);">10</div>
+                    </div>
+                    <div>
+                        <div style="font-size:11px; font-weight:800; color:var(--emerald-600);">सही उत्तर</div>
+                        <div id="resCorrect" style="font-size:1.5rem; font-weight:900; color:var(--emerald-600);">9</div>
+                    </div>
+                    <div>
+                        <div style="font-size:11px; font-weight:800; color:var(--brand-600);">सटीकता</div>
+                        <div id="resAccuracy" style="font-size:1.5rem; font-weight:900; color:var(--brand-600);">90%</div>
+                    </div>
+                </div>
+
+                <!-- Mistakes review list -->
+                <div id="resMistakesBox" class="hidden" style="text-align:left; margin-bottom:18px;">
+                    <div style="font-size:11px; font-weight:900; text-transform:uppercase; color:var(--rose-600); margin-bottom:6px;">
+                        ⚠️ गलत उत्तरों का सही समाधान:
+                    </div>
+                    <div id="resMistakesList" style="max-height:180px; overflow-y:auto; display:flex; flex-direction:column; gap:6px;"></div>
+                </div>
+
+                <!-- Action buttons -->
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                    <button onclick="startQuizWithCountdown()" class="btn-yellow" style="justify-content:center; padding:12px; font-size:13px; background:var(--brand-600); color:#ffffff;">
+                        फिर से टेस्ट दें
+                    </button>
+                    <button onclick="exitQuizToSetup()" class="preset-pill" style="padding:12px; font-size:13px;">
+                        विषय / दायरा बदलें
+                    </button>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- 3-2-1 Countdown Overlay -->
+    <div id="quizCountdownOverlay" class="countdown-overlay hidden">
+        <div id="countdownNumber" class="countdown-digit animate-pop">3</div>
+        <div style="font-size:14px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; margin-top:12px;">तैयार हो जाइए...</div>
+    </div>
+
+    <script>
+        /* ==========================================================
+           100% OFFLINE AUDIO SYNTHESIZER (Web Audio API)
+           ========================================================== */
+        let audioCtx = null;
+        let isAudioMuted = false;
+
+        function getAudioContext() {
+            if (!audioCtx) {
+                const AudioCtxClass = window.AudioContext || window.webkitAudioContext;
+                if (AudioCtxClass) audioCtx = new AudioCtxClass();
+            }
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            return audioCtx;
+        }
+
+        function playSound(type) {
+            if (isAudioMuted) return;
+            const ctx = getAudioContext();
+            if (!ctx) return;
+
+            const now = ctx.currentTime;
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+
+            if (type === 'correct') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(523.25, now);
+                osc.frequency.exponentialRampToValueAtTime(783.99, now + 0.12);
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.28);
+                osc.start(now);
+                osc.stop(now + 0.28);
+            } else if (type === 'wrong') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(150, now);
+                osc.frequency.exponentialRampToValueAtTime(95, now + 0.25);
+                gain.gain.setValueAtTime(0.25, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+                osc.start(now);
+                osc.stop(now + 0.3);
+            } else if (type === 'click') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(600, now);
+                gain.gain.setValueAtTime(0.06, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+                osc.start(now);
+                osc.stop(now + 0.05);
+            } else if (type === 'streak') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(587.33, now);
+                osc.frequency.exponentialRampToValueAtTime(880, now + 0.2);
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+                osc.start(now);
+                osc.stop(now + 0.35);
+            }
+        }
+
+        function toggleSound() {
+            isAudioMuted = !isAudioMuted;
+            const label = document.getElementById('soundLabel');
+            if (isAudioMuted) {
+                label.textContent = 'म्यूट';
+            } else {
+                label.textContent = 'साउंड चालू';
+                getAudioContext();
+                playSound('click');
+            }
+        }
+
+        const TABS = ['tables', 'fractions', 'divisibility', 'primes', 'quiz'];
+
+        function switchNavTab(tabName) {
+            playSound('click');
+            TABS.forEach(t => {
+                const sec = document.getElementById(`sec_${t}`);
+                const btn = document.getElementById(`tabNav_${t}`);
+                if (t === tabName) {
+                    sec.classList.remove('hidden');
+                    btn.classList.add('active');
+                } else {
+                    sec.classList.add('hidden');
+                    btn.classList.remove('active');
+                }
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        let currentTableNumber = 12;
+
+        function initTablesSection() {
+            const grid = document.getElementById('tableButtonsGrid');
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            for (let i = 1; i <= 30; i++) {
+                const btn = document.createElement('button');
+                btn.id = `tableBtn_${i}`;
+                btn.className = `num-selector-btn ${i === currentTableNumber ? 'selected' : ''}`;
+                btn.textContent = i;
+                btn.onclick = () => {
+                    selectTable(i);
+                    playSound('click');
+                };
+                grid.appendChild(btn);
+            }
+
+            // Populate Dropdowns in Quiz Setup
+            const fromSel = document.getElementById('rangeSelectFrom');
+            const toSel = document.getElementById('rangeSelectTo');
+            if (fromSel && toSel) {
+                fromSel.innerHTML = '';
+                toSel.innerHTML = '';
+                for (let i = 1; i <= 30; i++) {
+                    const opt1 = document.createElement('option');
+                    opt1.value = i;
+                    opt1.textContent = `${i} का पहाड़ा`;
+                    if (i === 1) opt1.selected = true;
+                    fromSel.appendChild(opt1);
+
+                    const opt2 = document.createElement('option');
+                    opt2.value = i;
+                    opt2.textContent = `${i} का पहाड़ा`;
+                    if (i === 30) opt2.selected = true;
+                    toSel.appendChild(opt2);
+                }
+            }
+
+            selectTable(12);
+        }
+
+        function filterTables(min, max) {
+            playSound('click');
+            ['all', '1-10', '11-20', '21-30'].forEach(id => {
+                const el = document.getElementById(`tblFilter_${id}`);
+                if (el) el.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            for (let i = 1; i <= 30; i++) {
+                const b = document.getElementById(`tableBtn_${i}`);
+                if (b) {
+                    b.style.display = (i >= min && i <= max) ? 'block' : 'none';
+                }
+            }
+            if (currentTableNumber < min || currentTableNumber > max) {
+                selectTable(min);
+            }
+        }
+
+        function selectTable(num) {
+            currentTableNumber = num;
+            for (let i = 1; i <= 30; i++) {
+                const b = document.getElementById(`tableBtn_${i}`);
+                if (b) {
+                    if (i === num) b.classList.add('selected');
+                    else b.classList.remove('selected');
+                }
+            }
+
+            document.getElementById('tableBadgeNumber').textContent = num;
+            document.getElementById('tableTitle').textContent = `${num} का पहाड़ा (Table of ${num})`;
+            const labelEl = document.getElementById('currentTableTestLabel');
+            if (labelEl) labelEl.textContent = `${num} के पहाड़े`;
+
+            const eqGrid = document.getElementById('tableEquationsGrid');
+            eqGrid.innerHTML = '';
+            for (let i = 1; i <= 10; i++) {
+                const row = document.createElement('div');
+                row.className = 'eq-row';
+                row.innerHTML = `
+                    <div>
+                        <span style="color:var(--brand-600);">${num}</span>
+                        <span style="color:var(--slate-400); margin:0 4px;">×</span>
+                        <span style="color:var(--slate-600);">${i}</span>
+                        <span style="color:var(--slate-400); margin:0 4px;">=</span>
+                        <span style="color:var(--brand-700);">${num * i}</span>
+                    </div>
+                    <span style="font-size:11px; color:var(--slate-400); font-family:sans-serif;">#${i}</span>
+                `;
+                eqGrid.appendChild(row);
+            }
+        }
+
+        function speakTable() {
+            if (!('speechSynthesis' in window)) return;
+            window.speechSynthesis.cancel();
+            const text = `${currentTableNumber} का पहाड़ा. ` +
+                Array.from({length: 10}, (_, i) => `${currentTableNumber} गुणा ${i + 1} बराबर ${currentTableNumber * (i + 1)}`).join(', ');
+            const utter = new SpeechSynthesisUtterance(text);
+            utter.lang = 'hi-IN';
+            utter.rate = 0.95;
+            window.speechSynthesis.speak(utter);
+        }
+
+        function launchTablesQuizDirect(fromT, toT) {
+            switchNavTab('quiz');
+            selectQuizTopic('tables');
+            setQuizRangePreset(fromT, toT, (fromT === 1 && toT === 30) ? 'all' : (fromT === toT ? 'custom' : 'preset'));
+            startQuizWithCountdown();
+        }
+
+        const EXAM_FRACTION_DATA = [
+            { frac: "1/1", pct: "100%", mixed: "100%", type: "base" },
+            { frac: "1/2", pct: "50%", mixed: "50%", type: "base" },
+            { frac: "1/3", pct: "33.33%", mixed: "33 ⅓%", type: "base" },
+            { frac: "1/4", pct: "25%", mixed: "25%", type: "base" },
+            { frac: "1/5", pct: "20%", mixed: "20%", type: "base" },
+            { frac: "1/6", pct: "16.66%", mixed: "16 ⅔%", type: "base" },
+            { frac: "1/7", pct: "14.28%", mixed: "14 ²/₇%", type: "base" },
+            { frac: "1/8", pct: "12.5%", mixed: "12 ½%", type: "base" },
+            { frac: "1/9", pct: "11.11%", mixed: "11 ⅑%", type: "base" },
+            { frac: "1/10", pct: "10%", mixed: "10%", type: "base" },
+            { frac: "1/11", pct: "9.09%", mixed: "9 ¹/₁₁%", type: "base" },
+            { frac: "1/12", pct: "8.33%", mixed: "8 ⅓%", type: "base" },
+            { frac: "1/13", pct: "7.69%", mixed: "7 ⁹/₁₃%", type: "base" },
+            { frac: "1/14", pct: "7.14%", mixed: "7 ¹/₇%", type: "base" },
+            { frac: "1/15", pct: "6.66%", mixed: "6 ⅔%", type: "base" },
+            { frac: "1/16", pct: "6.25%", mixed: "6 ¼%", type: "base" },
+            { frac: "1/17", pct: "5.88%", mixed: "5 ¹⁵/₁₇%", type: "base" },
+            { frac: "1/18", pct: "5.55%", mixed: "5 ⁵/₉%", type: "base" },
+            { frac: "1/19", pct: "5.26%", mixed: "5 ⁵/₁₉%", type: "base" },
+            { frac: "1/20", pct: "5%", mixed: "5%", type: "base" },
+            { frac: "1/24", pct: "4.16%", mixed: "4 ⅙%", type: "base" },
+            { frac: "1/25", pct: "4%", mixed: "4%", type: "base" },
+            // Exam Multiples
+            { frac: "2/3", pct: "66.66%", mixed: "66 ⅔%", type: "multiples" },
+            { frac: "3/4", pct: "75%", mixed: "75%", type: "multiples" },
+            { frac: "2/5", pct: "40%", mixed: "40%", type: "multiples" },
+            { frac: "3/5", pct: "60%", mixed: "60%", type: "multiples" },
+            { frac: "4/5", pct: "80%", mixed: "80%", type: "multiples" },
+            { frac: "5/6", pct: "83.33%", mixed: "83 ⅓%", type: "multiples" },
+            { frac: "2/7", pct: "28.56%", mixed: "28 ⁴/₇%", type: "multiples" },
+            { frac: "3/7", pct: "42.85%", mixed: "42 ⁶/₇%", type: "multiples" },
+            { frac: "4/7", pct: "57.14%", mixed: "57 ¹/₇%", type: "multiples" },
+            { frac: "3/8", pct: "37.5%", mixed: "37 ½%", type: "multiples" },
+            { frac: "5/8", pct: "62.5%", mixed: "62 ½%", type: "multiples" },
+            { frac: "7/8", pct: "87.5%", mixed: "87 ½%", type: "multiples" },
+            { frac: "4/9", pct: "44.44%", mixed: "44 ⁴/₉%", type: "multiples" },
+            { frac: "7/9", pct: "77.77%", mixed: "77 ⁷/₉%", type: "multiples" }
+        ];
+
+        function initFractionsSection() {
+            renderFractionCards(EXAM_FRACTION_DATA);
+        }
+
+        function filterFractionCategory(category) {
+            playSound('click');
+            ['all', 'base', 'multiples'].forEach(id => {
+                const el = document.getElementById(`fracFilter_${id}`);
+                if (el) el.classList.remove('active');
+            });
+            const active = document.getElementById(`fracFilter_${category}`);
+            if (active) active.classList.add('active');
+
+            if (category === 'all') {
+                renderFractionCards(EXAM_FRACTION_DATA);
+            } else {
+                renderFractionCards(EXAM_FRACTION_DATA.filter(f => f.type === category));
+            }
+        }
+
+        function renderFractionCards(list) {
+            const grid = document.getElementById('fractionCardsGrid');
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            list.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'frac-card';
+                card.innerHTML = `
+                    <div style="display:flex; align-items:center; justify-content:space-between;">
+                        <span style="font-size:1.4rem; font-weight:900; color:var(--violet-700); font-family:monospace;">${item.frac}</span>
+                        <span style="font-size:10px; font-weight:800; padding:2px 6px; border-radius:var(--radius-full); background:var(--slate-100); color:var(--slate-600);">${item.type === 'base' ? 'मूल' : 'गुणज'}</span>
+                    </div>
+                    <div style="margin-top:10px; padding-top:8px; border-top:1px solid var(--slate-100);">
+                        <div style="font-size:1.15rem; font-weight:900; color:var(--slate-900);">${item.pct}</div>
+                        <div style="font-size:11px; font-weight:700; color:var(--violet-600); display:flex; justify-content:space-between; margin-top:2px;">
+                            <span>मिश्र भिन्न:</span>
+                            <span>${item.mixed}</span>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        const DIVISIBILITY_RULES_DATA = [
+            { num: 2, title: "2 से विभाज्यता का नियम", rule: "इकाई अंक (Last Digit) सम संख्या हो: 0, 2, 4, 6, या 8।", example: "उदा: 438 (अंतिम अंक 8 है, अतः 2 से कटेगा)।" },
+            { num: 3, title: "3 से विभाज्यता का नियम", rule: "संख्या के सभी अंकों का योग (Sum of digits) 3 से पूरा कटना चाहिए।", example: "उदा: 462 → 4 + 6 + 2 = 12 (12 ÷ 3 = 4, अतः कटेगा)।" },
+            { num: 4, title: "4 से विभाज्यता का नियम", rule: "अंतिम दो अंकों से बनी संख्या 4 से विभाज्य हो या अंतिम दोनों अंक '00' हों।", example: "उदा: 7524 (अंतिम दो अंक 24 हैं, 24 ÷ 4 = 6, अतः कटेगा)।" },
+            { num: 5, title: "5 से विभाज्यता का नियम", rule: "इकाई अंक केवल 0 या 5 होना चाहिए।", example: "उदा: 135, 980 (अंतिम अंक 5 और 0 हैं, अतः 5 से कटेगा)।" },
+            { num: 6, title: "6 से विभाज्यता का नियम", rule: "संख्या 2 और 3 दोनों के नियमों को पूरी करे (सम संख्या हो और अंकों का योग 3 से कटे)।", example: "उदा: 324 (सम है तथा 3+2+4 = 9 जो 3 से कटता है)।" },
+            { num: 7, title: "7 से विभाज्यता का नियम", rule: "इकाई अंक का दोगुना करके शेष बची संख्या में से घटाएं; परिणाम 0 या 7 का गुणज हो।", example: "उदा: 343 → 34 - (3 × 2) = 28 (28 ÷ 7 = 4, अतः कटेगा)।" },
+            { num: 8, title: "8 से विभाज्यता का नियम", rule: "अंतिम 3 अंकों से बनी संख्या 8 से विभाज्य हो या अंतिम तीन अंक '000' हों।", example: "उदा: 5824 (अंतिम तीन अंक 824 ÷ 8 = 103, अतः विभाज्य है)।" },
+            { num: 9, title: "9 से विभाज्यता का नियम", rule: "संख्या के सभी अंकों का कुल योग 9 से पूर्णतः विभाजित होना चाहिए।", example: "उदा: 729 → 7 + 2 + 9 = 18 (18 ÷ 9 = 2, अतः कटेगा)।" },
+            { num: 10, title: "10 से विभाज्यता का नियम", rule: "संख्या का अंतिम इकाई अंक अनिवार्य रूप से 0 हो।", example: "उदा: 450, 1280 (इकाई अंक 0 है, अतः 10 से कटेगा)।" },
+            { num: 11, title: "11 से विभाज्यता का नियम", rule: "विषम स्थानों के अंकों का योग और सम स्थानों के अंकों के योग का अंतर 0 या 11 का गुणज हो।", example: "उदा: 1331 → (1+3) - (3+1) = 0 (अतः 11 से विभाज्य है)।" }
+        ];
+
+        function initDivisibilitySection() {
+            const grid = document.getElementById('divisibilityRulesGrid');
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            DIVISIBILITY_RULES_DATA.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'rule-card';
+                card.innerHTML = `
+                    <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px;">
+                        <div style="width:38px; height:38px; border-radius:var(--radius-md); background:var(--emerald-50); border:1px solid var(--emerald-100); color:var(--emerald-700); display:flex; align-items:center; justify-content:center; font-weight:900; font-size:1.15rem;">
+                            ${item.num}
+                        </div>
+                        <h3 style="font-weight:900; font-size:14px; color:var(--slate-800);">${item.title}</h3>
+                    </div>
+                    <p style="font-size:12px; color:var(--slate-600); line-height:1.4;">${item.rule}</p>
+                    <div style="margin-top:8px; padding:7px 10px; border-radius:var(--radius-md); background:var(--slate-50); border:1px solid var(--slate-200); font-size:11.5px; font-weight:700; color:var(--emerald-700); font-family:monospace;">
+                        ${item.example}
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        const PRIMES_UNDER_100 = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97];
+        const PRIME_SET = new Set(PRIMES_UNDER_100);
+
+        function initPrimeSection() {
+            const grid = document.getElementById('primeNumbersGrid');
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            for (let i = 1; i <= 100; i++) {
+                const isPrime = PRIME_SET.has(i);
+                const btn = document.createElement('button');
+                btn.id = `primeCell_${i}`;
+                btn.className = 'num-selector-btn';
+                if (isPrime) {
+                    btn.style.backgroundColor = 'var(--emerald-500)';
+                    btn.style.color = '#ffffff';
+                    btn.style.borderColor = 'var(--emerald-600)';
+                } else if (i === 1) {
+                    btn.style.backgroundColor = 'var(--slate-200)';
+                    btn.style.color = 'var(--slate-500)';
+                }
+                btn.textContent = i;
+                btn.onclick = () => inspectNumber(i);
+                grid.appendChild(btn);
+            }
+            inspectNumber(73);
+        }
+
+        function inspectNumber(num) {
+            playSound('click');
+            document.getElementById('inspectorNum').textContent = num;
+            const statusEl = document.getElementById('inspectorStatus');
+            const detailsEl = document.getElementById('inspectorDetails');
+
+            if (num === 1) {
+                statusEl.textContent = '1 न तो अभाज्य है और न ही भाज्य (Neither Prime nor Composite)';
+                detailsEl.textContent = 'क्योंकि 1 का केवल एक ही गुणनखंड (1) होता है।';
+            } else if (PRIME_SET.has(num)) {
+                statusEl.textContent = `${num} एक अभाज्य संख्या (Prime Number) है`;
+                detailsEl.textContent = `इसके केवल 2 गुणनखंड हैं: 1 और ${num} (यह केवल 1 और खुद से कटती है)।`;
+            } else {
+                const factors = [];
+                for (let k = 1; k <= num; k++) {
+                    if (num % k === 0) factors.push(k);
+                }
+                statusEl.textContent = `${num} एक भाज्य संख्या (Composite Number) है`;
+                detailsEl.textContent = `गुणनखंड: [${factors.join(', ')}] (2 से अधिक गुणनखंड हैं)।`;
+            }
+        }
+
+        let quizConfig = {
+            topic: 'tables',
+            tableFrom: 1,
+            tableTo: 30,
+            questionLength: 10,
+        };
+
+        let isQuizActive = false;
+        let currentQuestion = null;
+        let quizStats = {
+            total: 0,
+            correct: 0,
+            wrong: 0,
+            streak: 0,
+            questionNum: 0,
+            mistakes: []
+        };
+
+        function selectQuizTopic(topic) {
+            quizConfig.topic = topic;
+            playSound('click');
+
+            document.querySelectorAll('.topic-chip').forEach(b => b.classList.remove('active'));
+            const selectedBtn = document.getElementById(`topicBtn_${topic}`);
+            if (selectedBtn) selectedBtn.classList.add('active');
+
+            const rangeWrapper = document.getElementById('tableRangeConfigWrapper');
+            if (topic === 'tables' || topic === 'mixed') {
+                rangeWrapper.classList.remove('hidden');
+            } else {
+                rangeWrapper.classList.add('hidden');
+            }
+        }
+
+        function setQuizRangePreset(from, to, presetId) {
+            quizConfig.tableFrom = from;
+            quizConfig.tableTo = to;
+            const fromSel = document.getElementById('rangeSelectFrom');
+            const toSel = document.getElementById('rangeSelectTo');
+            if (fromSel) fromSel.value = from;
+            if (toSel) toSel.value = to;
+
+            document.querySelectorAll('.range-presets-grid .preset-pill').forEach(b => b.classList.remove('active'));
+            const activePreset = document.getElementById(`preset_${presetId}`);
+            if (activePreset) activePreset.classList.add('active');
+
+            const badge = document.getElementById('rangeBadgePreview');
+            if (badge) {
+                badge.textContent = from === to ? `सिर्फ ${from} का पहाड़ा` : `${from} से ${to} (रैंडम)`;
+            }
+            playSound('click');
+        }
+
+        function onRangeDropdownChange() {
+            const f = parseInt(document.getElementById('rangeSelectFrom').value, 10) || 1;
+            const t = parseInt(document.getElementById('rangeSelectTo').value, 10) || 30;
+            quizConfig.tableFrom = f;
+            quizConfig.tableTo = t;
+
+            document.querySelectorAll('.range-presets-grid .preset-pill').forEach(b => b.classList.remove('active'));
+            const badge = document.getElementById('rangeBadgePreview');
+            if (badge) {
+                badge.textContent = `${f} से ${t} (रैंडम)`;
+            }
+            playSound('click');
+        }
+
+        function setQuizQuestionCount(count) {
+            quizConfig.questionLength = count;
+            ['10', '20', 'timer60', 'endless'].forEach(k => {
+                const b = document.getElementById(`lenBtn_${k}`);
+                if (b) b.classList.remove('active');
+            });
+            const active = document.getElementById(`lenBtn_${count}`);
+            if (active) active.classList.add('active');
+            playSound('click');
+        }
+
+        function launchQuizForTopic(topic) {
+            switchNavTab('quiz');
+            selectQuizTopic(topic);
+            startQuizWithCountdown();
+        }
+
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function shuffleArray(arr) {
+            return [...arr].sort(() => Math.random() - 0.5);
+        }
+
+        function generateTableQuestion() {
+            const minT = Math.min(quizConfig.tableFrom, quizConfig.tableTo);
+            const maxT = Math.max(quizConfig.tableFrom, quizConfig.tableTo);
+            const n1 = getRandomInt(minT, maxT);
+            const n2 = getRandomInt(1, 10);
+            const ans = n1 * n2;
+
+            const distractors = new Set();
+            if (n2 > 1) distractors.add(n1 * (n2 - 1));
+            distractors.add(n1 * (n2 + 1));
+            distractors.add(ans + 10);
+            if (ans > 10) distractors.add(ans - 10);
+            distractors.add(ans + 2);
+            if (ans > 2) distractors.add(ans - 2);
+
+            distractors.delete(ans);
+            const picks = Array.from(distractors).filter(x => x > 0 && x !== ans).slice(0, 3);
+            while (picks.length < 3) {
+                const r = ans + getRandomInt(-10, 10);
+                if (r > 0 && r !== ans && !picks.includes(r)) picks.push(r);
+            }
+
+            const options = shuffleArray([ans, ...picks]).map(String);
+
+            return {
+                type: 'tables',
+                prompt: 'सही गुणनफल (Product) चुनें:',
+                html: `
+                    <div>
+                        <span style="color:var(--brand-600);">${n1}</span>
+                        <span style="color:var(--slate-400); margin:0 8px;">×</span>
+                        <span style="color:var(--brand-700);">${n2}</span>
+                        <span style="color:var(--slate-400); margin:0 8px;">=</span>
+                        <span style="color:var(--amber-500);">?</span>
+                    </div>
+                `,
+                answer: String(ans),
+                options: options,
+                explanation: `${n1} × ${n2} = ${ans}`
+            };
+        }
+
+        function generateFractionPercentageQuestion() {
+            const item = EXAM_FRACTION_DATA[getRandomInt(0, EXAM_FRACTION_DATA.length - 1)];
+            const isFracToPct = Math.random() > 0.5;
+
+            if (isFracToPct) {
+                const correct = item.pct;
+                const distractors = new Set();
+                while (distractors.size < 3) {
+                    const rnd = EXAM_FRACTION_DATA[getRandomInt(0, EXAM_FRACTION_DATA.length - 1)].pct;
+                    if (rnd !== correct) distractors.add(rnd);
+                }
+                const options = shuffleArray([correct, ...Array.from(distractors)]);
+
+                return {
+                    type: 'fractions',
+                    prompt: 'दिए गए भिन्न का प्रतिशत मान (Percentage Value) क्या होगा?',
+                    html: `
+                        <div>
+                            <div style="color:var(--violet-700); font-size:2.6rem;">${item.frac}</div>
+                            <div style="font-size:11px; color:var(--slate-400); margin-top:2px; font-family:sans-serif;">का प्रतिशत मान बराबर = ?</div>
+                        </div>
+                    `,
+                    answer: correct,
+                    options: options,
+                    explanation: `${item.frac} = ${item.pct} (या ${item.mixed})`
+                };
+            } else {
+                const correct = item.frac;
+                const distractors = new Set();
+                while (distractors.size < 3) {
+                    const rnd = EXAM_FRACTION_DATA[getRandomInt(0, EXAM_FRACTION_DATA.length - 1)].frac;
+                    if (rnd !== correct) distractors.add(rnd);
+                }
+                const options = shuffleArray([correct, ...Array.from(distractors)]);
+
+                return {
+                    type: 'fractions',
+                    prompt: 'दिए गए प्रतिशत का भिन्न मान (Fraction Value) क्या होगा?',
+                    html: `
+                        <div>
+                            <div style="color:var(--violet-700); font-size:2.6rem;">${item.pct}</div>
+                            <div style="font-size:11px; color:var(--slate-400); margin-top:2px; font-family:sans-serif;">का भिन्न रूप (Fraction) = ?</div>
+                        </div>
+                    `,
+                    answer: correct,
+                    options: options,
+                    explanation: `${item.pct} = ${item.frac}`
+                };
+            }
+        }
+
+        function generateDivisibilityQuestion() {
+            const divisors = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+            const div = divisors[getRandomInt(0, divisors.length - 1)];
+            const qType = Math.random() > 0.5 ? 'which_divisible' : 'find_divisor';
+
+            if (qType === 'which_divisible') {
+                const correctNum = div * getRandomInt(12, 85);
+                const distractors = [];
+                while (distractors.length < 3) {
+                    const cand = div * getRandomInt(12, 85) + getRandomInt(1, div - 1);
+                    if (cand % div !== 0 && !distractors.includes(cand) && cand !== correctNum) {
+                        distractors.push(cand);
+                    }
+                }
+                const options = shuffleArray([correctNum, ...distractors]).map(String);
+                return {
+                    type: 'divisibility',
+                    prompt: `निम्न में से कौन सी संख्या ${div} से पूरी तरह विभाज्य (Divisible) है?`,
+                    html: `
+                        <div style="font-size:1.8rem; font-family:sans-serif;">
+                            संख्या किससे विभाज्य है? <span style="background:var(--emerald-50); color:var(--emerald-700); padding:2px 10px; border-radius:var(--radius-md); font-family:monospace;">÷ ${div}</span>
+                        </div>
+                    `,
+                    answer: String(correctNum),
+                    options: options,
+                    explanation: `${correctNum} ÷ ${div} = ${correctNum / div} (पूर्णतः विभाज्य)`
+                };
+            } else {
+                const targetD = div;
+                const number = targetD * getRandomInt(14, 75);
+                const nonDivisors = divisors.filter(d => d !== targetD && number % d !== 0);
+                const picks = shuffleArray(nonDivisors).slice(0, 3);
+                const options = shuffleArray([targetD, ...picks]).map(String);
+
+                return {
+                    type: 'divisibility',
+                    prompt: `संख्या ${number} निम्न में से किस संख्या से पूर्णतः विभाज्य है?`,
+                    html: `
+                        <div>
+                            <span style="color:var(--emerald-600); font-size:2.6rem;">${number}</span>
+                            <div style="font-size:11px; color:var(--slate-400); margin-top:2px; font-family:sans-serif;">किससे विभाज्य है?</div>
+                        </div>
+                    `,
+                    answer: String(targetD),
+                    options: options,
+                    explanation: `${number} को ${targetD} से भाग देने पर शेषफल 0 आता है।`
+                };
+            }
+        }
+
+        function generatePrimeQuestion() {
+            const qVariant = Math.random() > 0.5 ? 'find_prime' : 'find_composite';
+
+            if (qVariant === 'find_prime') {
+                const prime = PRIMES_UNDER_100[getRandomInt(0, PRIMES_UNDER_100.length - 1)];
+                const composites = [];
+                while (composites.length < 3) {
+                    const c = getRandomInt(4, 99);
+                    if (!PRIME_SET.has(c) && c !== 1 && !composites.includes(c)) {
+                        composites.push(c);
+                    }
+                }
+                const options = shuffleArray([prime, ...composites]).map(String);
+                return {
+                    type: 'primes',
+                    prompt: 'निम्न में से कौन सी एक अभाज्य संख्या (Prime Number) है?',
+                    html: `
+                        <div style="font-size:1.8rem; color:var(--amber-500); font-family:sans-serif;">
+                            💎 अभाज्य संख्या पहचानें
+                        </div>
+                    `,
+                    answer: String(prime),
+                    options: options,
+                    explanation: `${prime} अभाज्य है (केवल 1 और ${prime} से कटती है)`
+                };
+            } else {
+                let comp = getRandomInt(4, 99);
+                while (PRIME_SET.has(comp) || comp === 1) {
+                    comp = getRandomInt(4, 99);
+                }
+                const primePicks = shuffleArray(PRIMES_UNDER_100).slice(0, 3);
+                const options = shuffleArray([comp, ...primePicks]).map(String);
+
+                return {
+                    type: 'primes',
+                    prompt: 'इनमें से कौन सी संख्या अभाज्य नहीं है (अर्थात् भाज्य/Composite है)?',
+                    html: `
+                        <div style="font-size:1.8rem; color:var(--rose-600); font-family:sans-serif;">
+                            भाज्य संख्या कौन सी है?
+                        </div>
+                    `,
+                    answer: String(comp),
+                    options: options,
+                    explanation: `${comp} भाज्य संख्या है, इसके 2 से अधिक गुणनखंड होते हैं।`
+                };
+            }
+        }
+
+        function startQuizWithCountdown() {
+            getAudioContext();
+            playSound('click');
+
+            const overlay = document.getElementById('quizCountdownOverlay');
+            const numEl = document.getElementById('countdownNumber');
+            overlay.classList.remove('hidden');
+
+            let c = 3;
+            numEl.textContent = c;
+            numEl.className = 'countdown-digit animate-pop';
+
+            const timer = setInterval(() => {
+                c--;
+                if (c > 0) {
+                    numEl.textContent = c;
+                    numEl.classList.remove('animate-pop');
+                    void numEl.offsetWidth;
+                    numEl.classList.add('animate-pop');
+                    playSound('click');
+                } else {
+                    clearInterval(timer);
+                    overlay.classList.add('hidden');
+                    launchActiveArena();
+                }
+            }, 600);
+        }
+
+        function launchActiveArena() {
+            isQuizActive = true;
+            document.getElementById('quizSetupCard').classList.add('hidden');
+            document.getElementById('quizActiveArena').classList.remove('hidden');
+            document.getElementById('quizResultModal').classList.add('hidden');
+
+            quizStats = {
+                total: 0,
+                correct: 0,
+                wrong: 0,
+                streak: 0,
+                questionNum: 0,
+                mistakes: []
+            };
+
+            const badge = document.getElementById('quizTopicBadge');
+            if (quizConfig.topic === 'tables') {
+                badge.textContent = `पहाड़े: ${quizConfig.tableFrom} से ${quizConfig.tableTo}`;
+            } else if (quizConfig.topic === 'fractions') {
+                badge.textContent = `प्रतिशत ⇄ भिन्न`;
+            } else if (quizConfig.topic === 'divisibility') {
+                badge.textContent = `विभाज्यता (2-11)`;
+            } else if (quizConfig.topic === 'primes') {
+                badge.textContent = `अभाज्य 1-100`;
+            } else {
+                badge.textContent = `🌟 ऑल-इन-वन मिक्स`;
+            }
+
+            updateLiveStatsUI();
+            nextQuizQuestion();
+        }
+
+        function exitQuizToSetup() {
+            isQuizActive = false;
+            playSound('click');
+            document.getElementById('quizSetupCard').classList.remove('hidden');
+            document.getElementById('quizActiveArena').classList.add('hidden');
+            document.getElementById('quizResultModal').classList.add('hidden');
+        }
+
+        function nextQuizQuestion() {
+            if (typeof quizConfig.questionLength === 'number' && quizStats.questionNum >= quizConfig.questionLength) {
+                finishQuizSession();
+                return;
+            }
+
+            let topicToUse = quizConfig.topic;
+            if (topicToUse === 'mixed') {
+                const pool = ['tables', 'fractions', 'divisibility', 'primes'];
+                topicToUse = pool[getRandomInt(0, pool.length - 1)];
+            }
+
+            let qData = null;
+            if (topicToUse === 'tables') {
+                qData = generateTableQuestion();
+            } else if (topicToUse === 'fractions') {
+                qData = generateFractionPercentageQuestion();
+            } else if (topicToUse === 'divisibility') {
+                qData = generateDivisibilityQuestion();
+            } else {
+                qData = generatePrimeQuestion();
+            }
+
+            currentQuestion = {
+                ...qData,
+                answered: false
+            };
+
+            quizStats.questionNum++;
+
+            const counterEl = document.getElementById('quizCounterText');
+            const progress = document.getElementById('quizProgressBar');
+            if (typeof quizConfig.questionLength === 'number') {
+                counterEl.textContent = `सवाल ${quizStats.questionNum} / ${quizConfig.questionLength}`;
+                const pct = ((quizStats.questionNum - 1) / quizConfig.questionLength) * 100;
+                progress.style.width = `${pct}%`;
+            } else {
+                counterEl.textContent = `सवाल #${quizStats.questionNum}`;
+                progress.style.width = '100%';
+            }
+
+            document.getElementById('questionCategoryPrompt').textContent = currentQuestion.prompt;
+            document.getElementById('questionContentArea').innerHTML = currentQuestion.html;
+            document.getElementById('quizFeedbackMessage').innerHTML = '';
+
+            renderOptionButtons(currentQuestion.options);
+        }
+
+        function renderOptionButtons(options) {
+            const grid = document.getElementById('quizOptionsGrid');
+            grid.innerHTML = '';
+            const labels = ['A', 'B', 'C', 'D'];
+
+            options.forEach((val, idx) => {
+                const btn = document.createElement('button');
+                btn.id = `quizOptBtn_${idx}`;
+                btn.type = 'button';
+                btn.className = 'option-button';
+                btn.innerHTML = `
+                    <div style="display:flex; align-items:center;">
+                        <span class="option-letter">${labels[idx]}</span>
+                        <span class="option-text">${val}</span>
+                    </div>
+                    <span class="status-indicator" style="font-size:16px; color:var(--slate-300);">➔</span>
+                `;
+                btn.onclick = () => handleQuizOptionClick(val, btn);
+                grid.appendChild(btn);
+            });
+        }
+
+        function handleQuizOptionClick(selectedVal, clickedBtn) {
+            if (!isQuizActive || currentQuestion.answered) return;
+            currentQuestion.answered = true;
+
+            const isCorrect = (String(selectedVal).trim() === String(currentQuestion.answer).trim());
+            const feedback = document.getElementById('quizFeedbackMessage');
+            const allBtns = document.querySelectorAll('#quizOptionsGrid button');
+            allBtns.forEach(b => b.disabled = true);
+
+            if (isCorrect) {
+                playSound('correct');
+                quizStats.correct++;
+                quizStats.streak++;
+                if (quizStats.streak > 1 && quizStats.streak % 3 === 0) playSound('streak');
+
+                clickedBtn.classList.add('correct', 'animate-success');
+                clickedBtn.querySelector('.status-indicator').innerHTML = '<b style="color:var(--emerald-600);">✓</b>';
+                feedback.innerHTML = `<span style="color:var(--emerald-600);">✓ बिल्कुल सही! (${currentQuestion.explanation})</span>`;
+            } else {
+                playSound('wrong');
+                quizStats.wrong++;
+                quizStats.streak = 0;
+
+                quizStats.mistakes.push({
+                    prompt: currentQuestion.prompt,
+                    userAns: selectedVal,
+                    correctAns: currentQuestion.answer,
+                    explanation: currentQuestion.explanation
+                });
+
+                clickedBtn.classList.add('wrong', 'animate-shake');
+                clickedBtn.querySelector('.status-indicator').innerHTML = '<b style="color:var(--rose-600);">✕</b>';
+
+                allBtns.forEach(b => {
+                    const v = b.querySelector('.option-text').textContent.trim();
+                    if (v === String(currentQuestion.answer).trim()) {
+                        b.classList.add('correct');
+                        b.querySelector('.status-indicator').innerHTML = '<b style="color:var(--emerald-600);">✓</b>';
+                    }
+                });
+
+                feedback.innerHTML = `<span style="color:var(--rose-600);">✕ गलत! सही उत्तर <b>${currentQuestion.answer}</b> है।</span>`;
+            }
+
+            updateLiveStatsUI();
+
+            setTimeout(() => {
+                if (isQuizActive) {
+                    nextQuizQuestion();
+                }
+            }, 850);
+        }
+
+        function updateLiveStatsUI() {
+            document.getElementById('statCorrect').textContent = quizStats.correct;
+            document.getElementById('statWrong').textContent = quizStats.wrong;
+            document.getElementById('statStreak').textContent = quizStats.streak;
+        }
+
+        function finishQuizSession() {
+            isQuizActive = false;
+            playSound('streak');
+
+            document.getElementById('quizActiveArena').classList.add('hidden');
+            document.getElementById('quizResultModal').classList.remove('hidden');
+
+            const total = quizStats.questionNum;
+            const accuracy = total > 0 ? Math.round((quizStats.correct / total) * 100) : 0;
+
+            document.getElementById('resTotal').textContent = total;
+            document.getElementById('resCorrect').textContent = quizStats.correct;
+            document.getElementById('resAccuracy').textContent = `${accuracy}%`;
+
+            const icon = document.getElementById('resIcon');
+            const title = document.getElementById('resTitle');
+            const sub = document.getElementById('resSubtitle');
+
+            if (accuracy >= 90) {
+                icon.textContent = '🏆';
+                title.textContent = 'अद्भुत! अव्वल प्रदर्शन!';
+                sub.textContent = 'आप गणित व एक्जाम कैलकुलेशन में पूरी तरह निपुण हैं!';
+            } else if (accuracy >= 70) {
+                icon.textContent = '🌟';
+                title.textContent = 'बहुत बढ़िया!';
+                sub.textContent = 'अच्छा स्कोर है, थोड़ा और अभ्यास करके 100% सटीकता लाएं!';
+            } else {
+                icon.textContent = '📚';
+                title.textContent = 'रिवीजन की आवश्यकता है!';
+                sub.textContent = 'नियमों व चार्ट को दोबारा देखें और टेस्ट देकर अभ्यास करें!';
+            }
+
+            const mistakesBox = document.getElementById('resMistakesBox');
+            const mistakesList = document.getElementById('resMistakesList');
+            if (quizStats.mistakes.length > 0) {
+                mistakesBox.classList.remove('hidden');
+                mistakesList.innerHTML = quizStats.mistakes.map(m => `
+                    <div style="padding:8px 10px; border-radius:var(--radius-md); background:var(--rose-50); border:1px solid var(--rose-100); font-size:11px;">
+                        <span style="font-weight:700; color:var(--slate-800);">${m.prompt}</span>
+                        <div style="display:flex; justify-content:space-between; margin-top:2px;">
+                            <span style="color:var(--rose-600); text-decoration:line-through;">आपका उत्तर: ${m.userAns}</span>
+                            <span style="color:var(--emerald-700); font-weight:900;">सही उत्तर: ${m.correctAns}</span>
+                        </div>
+                        <span style="font-size:10px; color:var(--slate-500); font-style:italic;">हल: ${m.explanation}</span>
+                    </div>
+                `).join('');
+            } else {
+                mistakesBox.classList.add('hidden');
+                mistakesList.innerHTML = '';
+            }
+        }
+
+        // Global Keyboard Shortcut: Press 1, 2, 3, 4 for MCQ Options
+        window.addEventListener('keydown', (e) => {
+            if (!isQuizActive || !currentQuestion || currentQuestion.answered) return;
+            const key = e.key;
+            if (['1', '2', '3', '4'].includes(key)) {
+                const idx = parseInt(key, 10) - 1;
+                const btn = document.getElementById(`quizOptBtn_${idx}`);
+                if (btn && currentQuestion.options[idx] !== undefined) {
+                    handleQuizOptionClick(currentQuestion.options[idx], btn);
+                }
+            }
+        });
+
+        /* Window Load Initialization */
+        window.onload = function() {
+            initTablesSection();
+            initFractionsSection();
+            initDivisibilitySection();
+            initPrimeSection();
+            selectQuizTopic('tables');
+            setQuizRangePreset(1, 30, 'all');
+            setQuizQuestionCount(10);
+        };
+    </script>
+</body>
+</html>
+```
